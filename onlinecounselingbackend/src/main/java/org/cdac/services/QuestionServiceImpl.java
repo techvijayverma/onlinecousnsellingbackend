@@ -65,6 +65,31 @@ public class QuestionServiceImpl implements QuestionService {
 		return true;
 	}
 
+	@Override
+	public boolean deleteQuestion(int questNo) {
+		QuestionDTO objDTO=findByQuestion(questNo);
+		Question objQuestion=new Question();
+		BeanUtils.copyProperties(objDTO,objQuestion);
+		questRepo.delete(objQuestion);
+		return true;
+		
+	}
+
+	@Override
+	public List<QuestionDTO> findByQuestionType(String q_type) {
+		
+		
+		List<Question> allQuestions=questRepo.getQuestionPaper(q_type);
+		List<QuestionDTO> questions=new ArrayList<>();
+		for(Question objQuestion:allQuestions)
+		{
+			QuestionDTO objQuestionDTO=new QuestionDTO();
+			BeanUtils.copyProperties(objQuestion, objQuestionDTO);
+			questions.add(objQuestionDTO);
+		}
+		return questions;
+	}
+
 	
 	
 

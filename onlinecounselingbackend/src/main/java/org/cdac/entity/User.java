@@ -19,7 +19,7 @@ public class User {
 	@Column(name="email")
 	String email;
 	@Column(name="phone")
-	int phone;
+	long phone;
 	@Column(name="usertype")
 	String userType;
 	@Column(name="interestedin")
@@ -56,10 +56,13 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getPhone() {
+	
+	
+	
+	public long getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(long phone) {
 		this.phone = phone;
 	}
 	public String getUserType() {

@@ -9,6 +9,7 @@ public class QuestionDTO {
 	String questOption3;
 	String questOption4;
 	String questAnswer;
+	String questType;
 	public int getQuestNo() {
 		return questNo;
 	}
@@ -50,6 +51,12 @@ public class QuestionDTO {
 	}
 	public void setQuestAnswer(String questAnswer) {
 		this.questAnswer = questAnswer;
+	}
+	public String getQuestType() {
+		return questType;
+	}
+	public void setQuestType(String questType) {
+		this.questType = questType;
 	}
 	
 	

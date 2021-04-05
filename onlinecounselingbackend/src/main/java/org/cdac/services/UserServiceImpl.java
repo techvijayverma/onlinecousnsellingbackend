@@ -37,19 +37,39 @@ public class UserServiceImpl implements UserService {
 		}
 		
 	}
-
+	
+	
 	@Override
-	public List<UserDTO> allUsers() {
-		List<User> allUsers=userRepo.findAll();
-		List<UserDTO> users=new ArrayList<>();
-		for(User objUser:allUsers)
-		{
-			UserDTO tmpUser=new UserDTO();
-			BeanUtils.copyProperties(objUser, tmpUser);
-			users.add(tmpUser);
+	public boolean updateProfile(UserDTO objUser) {
+		try {
+			
+			String username=objUser.getUsername();
+			User entity=userRepo.getOne(username);
+			
+			BeanUtils.copyProperties(objUser, entity);
+			userRepo.save(entity); 
+			return true;
+		} 
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
 		}
-		return users;
+		
 	}
+
+//	@Override
+//	public List<UserDTO> allUsers() {
+//		List<User> allUsers=userRepo.findAll();
+//		List<UserDTO> users=new ArrayList<>();
+//		for(User objUser:allUsers)
+//		{
+//			UserDTO tmpUser=new UserDTO();
+//			BeanUtils.copyProperties(objUser, tmpUser);
+//			users.add(tmpUser);
+//		}
+//		return users;
+//	}
 
 	@Override
 	public UserDTO findByUserName(String username) {
@@ -57,6 +77,48 @@ public class UserServiceImpl implements UserService {
 		UserDTO dto=new UserDTO();
 		BeanUtils.copyProperties(entity, dto);
 		return dto;
+	}
+
+	@Override
+	public boolean changePassword(UserDTO dtoObject) {
+try {
+			
+			String username=dtoObject.getUsername();
+			String password=dtoObject.getPassword();
+			userRepo.updatePassword(password,username); 
+			return true;
+		} 
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+
+	@Override
+	public String authenticate(UserDTO dtoUser) {
+		String username=dtoUser.getUsername();
+		User objUser=userRepo.getOne(username);
+		if(objUser.getPassword().equals(dtoUser.getPassword()) && objUser.getUserType().equals(dtoUser.getUserType()))
+		return objUser.getUserType();
+		else
+		return("Wrong credentials");
+	}
+
+
+	@Override
+	public List<UserDTO> allUsers(String userType) {
+		List<User> listUsers=userRepo.listUsers(userType);
+		List<UserDTO> dtoUsers=new ArrayList<>();
+		for(User objUser:listUsers)
+		{
+			UserDTO tmpUser=new UserDTO();
+			BeanUtils.copyProperties(objUser, tmpUser);
+			dtoUsers.add(tmpUser);
+		}
+		return dtoUsers;
+		
 	}
 
 }

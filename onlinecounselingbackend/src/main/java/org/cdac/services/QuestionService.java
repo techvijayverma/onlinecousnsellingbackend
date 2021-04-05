@@ -12,4 +12,6 @@ public interface QuestionService {
 	public List<QuestionDTO> allQuestions();
 	public QuestionDTO findByQuestion(int questionNo);
 	public boolean updateQuestion(QuestionDTO objQuestionDTO);
+	public boolean deleteQuestion(int questNo);
+	public List<QuestionDTO> findByQuestionType(String questionPaperType);
 }

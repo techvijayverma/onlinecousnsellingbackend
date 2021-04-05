@@ -34,32 +34,37 @@ public class UserController {
 	}
 	
 	
-	@GetMapping("/")
-	public List<UserDTO> allUsers() {
-		return userService.allUsers();
+	@PostMapping("/updateprofile")
+	public boolean updateProfile(@RequestBody UserDTO dto) {
+		return userService.updateProfile(dto);
 	}
-
-	/*
-	 * @GetMapping("defaultUser") public User getDefaultUser() { return new User();
-	 * }
-	 * 
-	 * @GetMapping("authenticate") public boolean
-	 * authenticate(@RequestParam(name="uname")String
-	 * username,@RequestParam(name="pwd")String password) {
-	 * if(username.equals("default")&&password.equals("defaultPassword")) return
-	 * true; return false; }
-	 * 
-	 * @GetMapping("auth/{uname}") public boolean auth(@PathVariable("uname") String
-	 * username) { if(username.equals("default")) return true; return false; }
-	 */ 
-	@PostMapping("/authenticate")
-	public boolean authenticate(@RequestBody UserDTO objUser) {
+	
+	
+	@GetMapping("/allusers")
+	public List<UserDTO> allUsers(@RequestParam String userType){
+		return userService.allUsers(userType);
 		
-		UserDTO dtoObject=new UserDTO();
-		dtoObject=userService.findByUserName(objUser.getUsername());
-		if (objUser.getUsername().equals(dtoObject.getUsername()) && objUser.getPassword().equals(dtoObject.getPassword()))
-			return true;
-		return false;
+	}
+	
+	
+//	@GetMapping("/allusers")
+//	public List<UserDTO> allUsers() {
+//		return userService.allUsers();
+//	}
+
+	
+	@PostMapping("/authenticate")
+	public String authenticate(@RequestBody UserDTO dtoUser) {
+		return userService.authenticate(dtoUser);
+	}
+	
+	@PostMapping("/changepassword")
+	public boolean changePassword(@RequestBody UserDTO dtoUser)
+	{
+		
+		return userService.changePassword(dtoUser);
+		
+		
 	}
 	  
 	 }

@@ -26,6 +26,8 @@ public class Question {
 	String questOption4;
 	@Column(name="q_answer")
 	String questAnswer;
+	@Column(name="q_type")
+	String questType;
 	public int getQuestNo() {
 		return questNo;
 	}
@@ -67,6 +69,12 @@ public class Question {
 	}
 	public void setQuestAnswer(String questAnswer) {
 		this.questAnswer = questAnswer;
+	}
+	public String getQuestType() {
+		return questType;
+	}
+	public void setQuestType(String questType) {
+		this.questType = questType;
 	}
 	
 
